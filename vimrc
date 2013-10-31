@@ -51,5 +51,8 @@ nnoremap Q @q
 
 " ==== autocommands =============================
 " au BufNewFile,BufRead *.flex set filetype=lex
+" autocmd BufNewFile,BufReadPost *.py set expandtab shiftwidth=4 tabstop=4 softtabstop=4
 autocmd BufNewFile,BufReadPost *.py set expandtab shiftwidth=4 tabstop=4 softtabstop=4
 autocmd BufNewFile,BufReadPost *.c,*.-c,*.h,*.cpp,*.hpp set autoindent cindent expandtab shiftwidth=2 smartindent smarttab wrapmargin=1
+
+filetype indent plugin on
