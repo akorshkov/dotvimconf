@@ -21,8 +21,13 @@ PLUGINS = {
         'src': "https://github.com/vim-scripts/vcscommand.vim",
     },
     'pba_cxx': {
-        'name': "Syntax highlitning for common pba constructs",
+        'name': "Syntax highlitning for common pba constructs (cpp)",
         'src_type': "local",
         'src': "local/pba_cxx",
+    },
+    'pbtst_py': {
+        'name': "Syntax highlitning for common pbtst constructs (python)",
+        'src_type': "local",
+        'src': "local/pbtst_py",
     },
 }
