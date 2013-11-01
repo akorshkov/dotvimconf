@@ -16,8 +16,8 @@ PLUGINS = {
     },
     'lisa_syntax': {
         'name': "Lisa syntax",
-        'src_type': "local",
-        'src': "local/lisa",
+        'src_type': "git",
+        'src': "https://github.com/akorshkov/lsa.git",
         'is_dir': True,
         'destination': "bundle",
     },
