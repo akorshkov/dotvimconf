@@ -30,4 +30,9 @@ PLUGINS = {
         'src_type': "local",
         'src': "local/pbtst_py",
     },
+    'bmlog': {
+        'name': "Syntax highlitning for pba logs",
+        'src_type': "local",
+        'src': "local/bmlog",
+    },
 }
