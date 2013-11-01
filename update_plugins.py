@@ -79,8 +79,8 @@ class VimPlugin(object):
         self.name = kwargs.pop('name')
         self.src_type = kwargs.pop('src_type')
         self.src = kwargs.pop('src')
-        self.is_dir = kwargs.pop('is_dir')
-        self.destination = kwargs.pop('destination')
+        self.is_dir = kwargs.pop('is_dir', True)
+        self.destination = kwargs.pop('destination', "bundle")
 
         self.pkg_name = self._get_pkg_name()
         self.parent_dir = os.path.join(self.vim_dir, self.destination)
