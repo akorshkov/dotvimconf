@@ -21,4 +21,11 @@ PLUGINS = {
         'is_dir': True,
         'destination': "bundle",
     },
+    'vcscommand': {
+        'name': "vim - SVN integration",
+        'src_type': "git",
+        'src': "https://github.com/vim-scripts/vcscommand.vim",
+        'is_dir': True,
+        'destination': "bundle",
+    },
 }
