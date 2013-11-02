@@ -4,6 +4,8 @@ PLUGINS = {
         'name': "Pathogen",
         'src_type': 'wget',
         'src': 'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim',
+        'is_dir': False,
+        'destination': "autoload",
     },
     'py_indent': {
         'name': "Python indent",
@@ -23,16 +25,16 @@ PLUGINS = {
     'pba_cxx': {
         'name': "Syntax highlitning for common pba constructs (cpp)",
         'src_type': "local",
-        'src': "local/pba_cxx",
+        'src': "local_distr/pba_cxx",
     },
     'pbtst_py': {
         'name': "Syntax highlitning for common pbtst constructs (python)",
         'src_type': "local",
-        'src': "local/pbtst_py",
+        'src': "local_distr/pbtst_py",
     },
     'bmlog': {
         'name': "Syntax highlitning for pba logs",
         'src_type': "local",
-        'src': "local/bmlog",
+        'src': "local_distr/bmlog",
     },
 }
