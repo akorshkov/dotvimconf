@@ -8,9 +8,14 @@ PLUGINS = {
         'destination': "autoload",
     },
     'py_indent': {
-        'name': "Python indent",
+        'name': "Python indent vim-python-pep8-indent",
         'src_type': "git",
         'src': "https://github.com/hynek/vim-python-pep8-indent.git",
+    },
+    'syntastic': {
+        'name': "Syntax checker for many languages",
+        'src_type': "git",
+        'src': "git://github.com/scrooloose/syntastic.git",
     },
     'lisa_syntax': {
         'name': "Lisa syntax",
