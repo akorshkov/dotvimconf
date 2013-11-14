@@ -1,5 +1,6 @@
 __pycache__
 *.pyc
+.netrwhist
 sel_plugs.cfg
 autoload
 bundle
