@@ -57,8 +57,12 @@ nnoremap Q @q
 
 " ==== autocommands =============================
 " au BufNewFile,BufRead *.flex set filetype=lex
-autocmd BufNewFile,BufReadPost *.py set expandtab shiftwidth=4 tabstop=4 softtabstop=4
-autocmd BufNewFile,BufReadPost *.c,*.-c,*.h,*.cpp,*.hpp set autoindent cindent expandtab shiftwidth=2 smartindent smarttab wrapmargin=1
+autocmd BufNewFile,BufReadPost *.py
+	\ setlocal expandtab shiftwidth=4 softtabstop=4
+autocmd BufNewFile,BufReadPost *.c,*.-c,*.h,*.cpp,*.hpp
+	\ setlocal autoindent cindent expandtab shiftwidth=2 softtabstop=-1 smartindent smarttab wrapmargin=1
+autocmd BufNewFile,BufReadPost *.vim
+	\ setlocal shiftwidth=4 softtabstop=4 tabstop=4
 
 filetype indent plugin on
 
@@ -72,6 +76,9 @@ let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'passive_filetypes': [] }
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list=1         " auto open/close the loc list (0/1/2)
+
+let g:syntastic_python_checkers = ['flake8', 'pylint']
+
 " hotkey to perform the syntax check
 nnoremap <leader>s :w<CR>:SyntasticCheck<CR>
 " toggle active/passive mode
