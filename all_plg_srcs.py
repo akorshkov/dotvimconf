@@ -31,8 +31,8 @@ PLUGINS = {
         'src': "local/pbtst_py",
     },
     'bmlog': {
-        'name': "Syntax highlitning for pba logs",
-        'src_type': "local",
-        'src': "local/bmlog",
+        'name': "Highliting and movements in pba log files",
+        'src_type': "git",
+        'src': "https://github.com/akorshkov/bmlog.git",
     },
 }

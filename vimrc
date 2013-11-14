@@ -43,6 +43,8 @@ nnoremap <s-F7> :cpfile<CR>
 nnoremap <F6> :copen<CR>
 nnoremap <s-F6> :cclose<CR>
 
+noremap zl :echo "hahaha"
+
 " ==== my favorite hotkeys ======================
 " use space to replace a single character
 nnoremap <Space> i_<Esc>r
@@ -53,6 +55,8 @@ nnoremap Q @q
 " au BufNewFile,BufRead *.flex set filetype=lex
 " autocmd BufNewFile,BufReadPost *.py set expandtab shiftwidth=4 tabstop=4 softtabstop=4
 autocmd BufNewFile,BufReadPost *.py set expandtab shiftwidth=4 tabstop=4 softtabstop=4
-autocmd BufNewFile,BufReadPost *.c,*.-c,*.h,*.cpp,*.hpp set autoindent cindent expandtab shiftwidth=2 smartindent smarttab wrapmargin=1
+autocmd BufNewFile,BufReadPost *.c,*.cc,*.h,*.cpp,*.hpp set autoindent cindent expandtab shiftwidth=2 smartindent smarttab wrapmargin=1
+autocmd FileType lsa set autoindent smartindent expandtab shiftwidth=2 softtabstop=2
+autocmd BufNewFile,BufReadPost *.pl set autoindent smartindent expandtab shiftwidth=2 softtabstop=2
 
 filetype indent plugin on
