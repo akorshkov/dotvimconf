@@ -90,6 +90,13 @@ class VimPlugin(object):
         self.prev_installed = os.path.exists(self.pkg_path)
 
     def update(self, new_only):
+        try:
+            self._do_update(new_only)
+        except Exception as e:
+            print(e)
+            print("... operation failed")
+
+    def _do_update(self, new_only):
         print("===== Processing plugin '%s' ..." % (self.descr, ))
         if self.prev_installed:
             if new_only:
