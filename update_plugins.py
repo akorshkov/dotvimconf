@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
+import sys
 import os.path
 import subprocess
+from optparse import OptionParser
 
 from all_plg_srcs import PLUGINS
 
@@ -76,7 +78,7 @@ class VimPlugin(object):
     def __init__(self, vim_dir, plug_id, **kwargs):
         self.vim_dir = vim_dir
         self.plug_id = plug_id
-        self.name = kwargs.pop('name')
+        self.descr = kwargs.pop('descr')
         self.src_type = kwargs.pop('src_type')
         self.src = kwargs.pop('src')
         self.is_dir = kwargs.pop('is_dir', True)
@@ -87,10 +89,16 @@ class VimPlugin(object):
         self.pkg_path = os.path.join(self.parent_dir, self.pkg_name)
         self.prev_installed = os.path.exists(self.pkg_path)
 
-    def update(self):
-        print("===== Processing plugin '%s' ..." % (self.name, ))
+    def update(self, new_only):
+        print("===== Processing plugin '%s' ..." % (self.descr, ))
         if self.prev_installed:
-            print("... skip, installed previously.")
+            if new_only:
+                print("... skip, installed previously.")
+            else:
+                if self._update_existing():
+                    print("... update failed.")
+                else:
+                    print("... updated successfully.")
         else:
             if self._install_new():
                 print("... installation failed.")
@@ -146,7 +154,7 @@ def mk_new_sel_plugs_file(fname):
     for plug_id, plug_props in PLUGINS.items():
         cfg_file.write("#%(PLG_ID)-20s # %(PLG_DESCR)s\n" % {
             'PLG_ID': plug_id,
-            'PLG_DESCR': plug_props['name']})
+            'PLG_DESCR': plug_props['descr']})
     print("File with a list of awailable plugins created:")
     print(fname)
     print("Uncomment all the plugins you want to install")
@@ -161,14 +169,60 @@ def get_selected_plugins_list(vim_dir):
     return plugs_list
 
 
+def process_options():
+    parser = OptionParser(usage="usage: %prog [options] [plugin_names]")
+    parser.add_option('-l', '--list', dest='print_list', default=False,
+                      action='store_true',
+                      help="print list of supported/installed plugins")
+    parser.add_option('-N', '--new_only', dest='new_only', default=False,
+                      action='store_true',
+                      help="install new plugins only, do not update existing")
+
+    return parser.parse_args()
+
+
+def print_plugins_list(vim_dir, sel_plug_ids):
+    all_plugins = [VimPlugin(vim_dir, id, **conf) for (id, conf) in PLUGINS.items()]
+    for plugin in all_plugins:
+        is_selected = plugin.plug_id in sel_plug_ids
+        fmt = "%(ID)15s %(SELECTED)12s %(INSTALLED)-12s %(DESCR)s"
+        statedescr = fmt % {
+            'ID': plugin.plug_id,
+            'SELECTED': "selected" if is_selected else "",
+            'INSTALLED': "installed" if plugin.prev_installed else "",
+            'DESCR': plugin.descr }
+        print(statedescr)
+    for plug_id in sel_plug_ids:
+        if plug_id not in PLUGINS:
+            print("WARNING: Unknown plugin '%s' is selected" % (plug_id,))
+
+
+def check_args_plugins_selected(plug_ids, sel_plug_ids):
+    for plug_id in plug_ids:
+        if plug_id not in sel_plug_ids:
+            print("Plugin '%s' is not selected. Include it into '~/.vim/sel_plugs.cfg' file")
+            sys.exit(1)
+
+
 def main():
+    options, args = process_options()
+
     vim_dir = os.path.abspath(os.path.expanduser("~/.vim"))
-    #vim_dir = os.path.abspath(os.path.expanduser("."))
-    plugs_list = get_selected_plugins_list(vim_dir)
-    if plugs_list:
-        for plugin_id in plugs_list:
+    sel_plug_ids = get_selected_plugins_list(vim_dir)
+
+    if options.print_list:
+        print_plugins_list(vim_dir, sel_plug_ids)
+        return
+
+    if args:
+        check_args_plugins_selected(args, sel_plug_ids)
+
+    plugs_to_process = args or sel_plug_ids
+
+    if plugs_to_process:
+        for plugin_id in plugs_to_process:
             plg = VimPlugin(vim_dir, plugin_id, **PLUGINS[plugin_id])
-            plg.update()
+            plg.update(options.new_only)
     else:
         print("Warning: No plugins selected.")
 

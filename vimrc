@@ -53,8 +53,6 @@ nnoremap <s-F7> :lprev<CR>
 nnoremap <F8> :cnext<CR>
 nnoremap <s-F8> :cprev<CR>
 
-noremap zl :echo "hahaha"
-
 " ==== my favorite hotkeys ======================
 " use space to replace a single character
 nnoremap <Space> i_<Esc>r
@@ -65,12 +63,13 @@ nnoremap Q @q
 " au BufNewFile,BufRead *.flex set filetype=lex
 autocmd BufNewFile,BufReadPost *.py
 	\ setlocal expandtab shiftwidth=4 softtabstop=4
-autocmd BufNewFile,BufReadPost *.c,*.-c,*.h,*.cpp,*.hpp
-	\ setlocal autoindent cindent expandtab shiftwidth=2 softtabstop=-1 smartindent smarttab wrapmargin=1
+autocmd BufNewFile,BufReadPost *.c,*.cc,*.h,*.cpp,*.hpp
+	\ setlocal autoindent cindent expandtab shiftwidth=2 softtabstop=2 smartindent smarttab wrapmargin=1
 autocmd BufNewFile,BufReadPost *.vim,vimrc,.vimrc
 	\ setlocal shiftwidth=4 softtabstop=4 tabstop=4
-autocmd FileType lsa set autoindent smartindent expandtab shiftwidth=2 softtabstop=2
-autocmd BufNewFile,BufReadPost *.pl set autoindent smartindent expandtab shiftwidth=2 softtabstop=2
+autocmd FileType lsa setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
+autocmd FileType xml setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
+autocmd BufNewFile,BufReadPost *.pl setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
 
 filetype indent plugin on
 
