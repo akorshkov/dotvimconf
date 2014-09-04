@@ -25,9 +25,9 @@ class _CmdMaker(object):
         },
         'wget': {
             _OPER_INSTALL_NEW: (
-                "%(PARENT_DIR)s", "wget %(SRC)s -O %(PKGNAME)s", ),
+                "%(PARENT_DIR)s", "wget --no-check-certificate %(SRC)s -O %(PKGNAME)s", ),
             _OPER_UPDATE_EXISTING: (
-                "%(PARENT_DIR)s", "wget %(SRC)s -O %(PKGNAME)s", ),
+                "%(PARENT_DIR)s", "wget --no-check-certificate %(SRC)s -O %(PKGNAME)s", ),
         },
         'local': {
             _OPER_INSTALL_NEW: (
@@ -189,7 +189,8 @@ def process_options():
 
 
 def print_plugins_list(vim_dir, sel_plug_ids):
-    all_plugins = [VimPlugin(vim_dir, id, **conf) for (id, conf) in PLUGINS.items()]
+    all_plugins = [VimPlugin(vim_dir, id, **conf)
+                   for (id, conf) in PLUGINS.items()]
     for plugin in all_plugins:
         is_selected = plugin.plug_id in sel_plug_ids
         fmt = "%(ID)15s %(SELECTED)12s %(INSTALLED)-12s %(DESCR)s"
@@ -197,7 +198,7 @@ def print_plugins_list(vim_dir, sel_plug_ids):
             'ID': plugin.plug_id,
             'SELECTED': "selected" if is_selected else "",
             'INSTALLED': "installed" if plugin.prev_installed else "",
-            'DESCR': plugin.descr }
+            'DESCR': plugin.descr}
         print(statedescr)
     for plug_id in sel_plug_ids:
         if plug_id not in PLUGINS:
@@ -207,7 +208,8 @@ def print_plugins_list(vim_dir, sel_plug_ids):
 def check_args_plugins_selected(plug_ids, sel_plug_ids):
     for plug_id in plug_ids:
         if plug_id not in sel_plug_ids:
-            print("Plugin '%s' is not selected. Include it into '~/.vim/sel_plugs.cfg' file")
+            print("Plugin '%s' is not selected. Include it into"
+                  " '~/.vim/sel_plugs.cfg' file")
             sys.exit(1)
 
 

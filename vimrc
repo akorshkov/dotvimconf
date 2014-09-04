@@ -60,6 +60,12 @@ nnoremap <Space> i_<Esc>r
 nnoremap Q @q
 
 " ==== autocommands =============================
+"
+" tabstop        - how tab looks
+" softtabstop    - how tab counts when I push tab
+" shiftwidth     - num spaces used for auto indents
+" expandtab
+"
 " au BufNewFile,BufRead *.flex set filetype=lex
 autocmd BufNewFile,BufReadPost *.py
 	\ setlocal expandtab shiftwidth=4 softtabstop=4
