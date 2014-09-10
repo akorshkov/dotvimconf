@@ -80,6 +80,27 @@ autocmd BufNewFile,BufReadPost *.pl setlocal autoindent smartindent expandtab sh
 
 filetype indent plugin on
 
+" ==== helpers for manual shiftwidth modifications
+function! ConfTabsWidths(if_expand, tab_width)
+	" set consistent values for various shift-width-related options
+	if a:if_expand
+		setlocal expandtab
+	else
+		setlocal noexpandtab
+	endif
+	let &l:shiftwidth = a:tab_width
+	let &l:softtabstop = a:tab_width
+	let &l:tabstop = a:if_expand ? 8 : a:tab_width
+endfunction
+
+" commands to use in vim cmd line. Like `:Ss4`
+command Ss2 call ConfTabsWidths(1, 2)  " pba cc code
+command Ss4 call ConfTabsWidths(1, 4)  " standard python
+command St2 call ConfTabsWidths(0, 2)  " stellart cc code
+command St4 call ConfTabsWidths(0, 4)  " pem python
+command St8 call ConfTabsWidths(0, 8)  " standard tab
+
+
 " ==== syntastic plugin configuraton ============
 let g:syntastic_enable_signs=0          " signs on the left side of window
 let g:syntastic_check_on_wq=0
