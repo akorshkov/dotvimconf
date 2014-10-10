@@ -42,4 +42,14 @@ PLUGINS = {
         'src_type': "git",
         'src': "https://github.com/akorshkov/bmlog.git",
     },
+    'textile': {
+        'descr': "textile ft-plugin",
+        'src_type': "git",
+        'src': "https://github.com/timcharper/textile.vim",
+    },
+    'vimwiki': {
+        'descr': "A Personal Wiki",
+        'src_type': "git",
+        'src': "https://github.com/vim-scripts/vimwiki",
+    },
 }

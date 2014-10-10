@@ -77,6 +77,8 @@ autocmd FileType vim setlocal iskeyword=@,48-57,_,192-255
 autocmd FileType java setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab
 autocmd FileType lsa setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
 autocmd FileType xml setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
+autocmd FileType html setlocal autoindent nosmartindent expandtab shiftwidth=2 softtabstop=2
+autocmd FileType vimwiki setlocal shiftwidth=4 softtabstop=4 tabstop=4
 autocmd BufNewFile,BufReadPost *.pl setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
 
 filetype indent plugin on
@@ -105,7 +107,7 @@ command St8 call ConfTabsWidths(0, 8)  " standard tab
 " ==== syntastic plugin configuraton ============
 let g:syntastic_enable_signs=0          " signs on the left side of window
 let g:syntastic_check_on_wq=0
-let g:syntastic_aggregate_errors=1
+let g:syntastic_aggregate_errors=1      " run all checkers
 let g:syntastic_echo_current_error=0    " do not display msgs in command line
 let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': [],
