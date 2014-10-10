@@ -74,6 +74,7 @@ autocmd BufNewFile,BufReadPost *.c,*.cc,*.h,*.cpp,*.hpp
 autocmd BufNewFile,BufReadPost *.vim,vimrc,.vimrc
 	\ setlocal shiftwidth=4 softtabstop=4 tabstop=4
 autocmd FileType vim setlocal iskeyword=@,48-57,_,192-255
+autocmd FileType java setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab
 autocmd FileType lsa setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
 autocmd FileType xml setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
 autocmd BufNewFile,BufReadPost *.pl setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
