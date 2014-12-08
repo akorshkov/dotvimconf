@@ -16,6 +16,12 @@ colorscheme peachpuff
 let mapleader=","
 let maplocalleader="\\"
 
+" ==== tags files  ==============================
+" comma-separated options:
+" - .tags in the same dir as current file
+" - .tags in current dir and up to $HOME
+set tags=./.tags,.tags;$HOME
+
 " ==== Status Line ==============================
 set statusline=
 set statusline+=%-2.2n\                       " buffer number
