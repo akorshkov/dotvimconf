@@ -43,6 +43,8 @@ set wildmenu                        " affects commands autocompletion
 set splitbelow                      " affect split
 set splitright                      " and vsplit commands
 
+set virtualedit=block               " in visual mode cursor goes beyond $
+
 " ==== hotkeys for quick-fix window =============
 nnoremap <F5> :lopen<CR>
 nnoremap <s-F5> :lclose<CR>
