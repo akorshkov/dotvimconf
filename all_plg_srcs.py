@@ -52,4 +52,14 @@ PLUGINS = {
         'src_type': "git",
         'src': "https://github.com/vim-scripts/vimwiki",
     },
+    'vimjson': {
+        'descr': "vim - JSON syntax and formatter",
+        'src_type': "git",
+        'src': "https://github.com/elzr/vim-json",
+    },
+    'fugitive': {
+        'descr': "Integration with git",
+        'src_type': "git",
+        'src': "https://github.com/tpope/vim-fugitive",
+    },
 }
