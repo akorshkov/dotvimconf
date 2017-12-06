@@ -62,4 +62,14 @@ PLUGINS = {
         'src_type': "git",
         'src': "https://github.com/tpope/vim-fugitive",
     },
+    'ropevim': {
+        'descr': "Integration with rope library for python development",
+        'src_type': "git",
+        'src': "https://github.com/python-rope/ropevim",
+    },
+    'vim_virtualenv': {
+        'descr': "Instruct vim to use python from virtual env",
+        'src_type': "git",
+        'src': "https://github.com/jmcantrell/vim-virtualenv",
+    },
 }
