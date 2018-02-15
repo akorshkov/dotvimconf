@@ -51,7 +51,18 @@ set splitright                      " and vsplit commands
 
 set virtualedit=block               " in visual mode cursor goes beyond $
 
+set hlsearch                        " highlight search matches
+
 " ==== hotkeys for quick-fix window =============
+if &term == "xterm"
+	" for <shift-Fx> to work inside putty
+	" http://vim.wikia.com/wiki/Mapping_fast_keycodes_in_terminal_Vim
+	set<s-F5>=[28~
+	set<s-F6>=[29~
+	set<s-F7>=[31~
+	set<s-F8>=[32~
+endif
+
 nnoremap <F5> :lopen<CR>
 nnoremap <s-F5> :lclose<CR>
 nnoremap <F6> :copen<CR>
@@ -125,6 +136,9 @@ let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list=1         " auto open/close the loc list (0/1/2)
 
 let g:syntastic_python_checkers = ['flake8', 'pylint']
+
+" ==== vim-json plugin configuraton =============
+let g:vim_json_syntax_conceal = 0
 
 " hotkey to perform the syntax check
 nnoremap <leader>s :w<CR>:SyntasticCheck<CR>
