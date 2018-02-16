@@ -144,3 +144,26 @@ let g:vim_json_syntax_conceal = 0
 nnoremap <leader>s :w<CR>:SyntasticCheck<CR>
 " toggle active/passive mode
 nnoremap <leader>S :SyntasticToggleMode<CR>
+
+
+" ==== finding syntax group of current word =====
+" Usage:
+" :call SynStack()
+
+function! SynStack()
+	" Display syntax group information for a character under coursor.
+	" Fisrst display 'synstack' ...
+	if !exists("*synstack")
+		return
+	endif
+	echon map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+	" ... and now display 'translated syntax group'
+	let l:s = synID(line('.'), col('.'), 1)
+	echon ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfunction
+
+" syntax-related hotkeys
+" - info about current word:
+nnoremap <s-F12> :call SynStack()<CR>
+" - fix syntax for current buffer:
+nnoremap <F12> :syntax sync fromstart<CR>
