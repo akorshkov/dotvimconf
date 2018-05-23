@@ -95,6 +95,7 @@ autocmd BufNewFile,BufReadPost *.vim,vimrc,.vimrc
 autocmd FileType ruby setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=8
 autocmd FileType vim setlocal iskeyword=@,48-57,_,192-255
 autocmd FileType java setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab
+autocmd FileType go setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab
 autocmd FileType lsa setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
 autocmd FileType xml setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
 autocmd FileType html setlocal autoindent nosmartindent expandtab shiftwidth=2 softtabstop=2
