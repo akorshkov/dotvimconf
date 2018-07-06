@@ -50,7 +50,7 @@ PLUGINS = {
     'vimwiki': {
         'descr': "A Personal Wiki",
         'src_type': "git",
-        'src': "https://github.com/vim-scripts/vimwiki",
+        'src': "https://github.com/vimwiki/vimwiki",
     },
     'vimjson': {
         'descr': "vim - JSON syntax and formatter",
