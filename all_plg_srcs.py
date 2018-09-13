@@ -52,6 +52,11 @@ PLUGINS = {
         'src_type': "git",
         'src': "https://github.com/vimwiki/vimwiki",
     },
+    'ak_vimwiki': {
+        'descr': "My amendments to vimwiki plugin",
+        'src_type': "git",
+        'src': "https://github.com/akorshkov/ak_vimwiki.git",
+    },
     'vimjson': {
         'descr': "vim - JSON syntax and formatter",
         'src_type': "git",
@@ -71,5 +76,20 @@ PLUGINS = {
         'descr': "Instruct vim to use python from virtual env",
         'src_type': "git",
         'src': "https://github.com/jmcantrell/vim-virtualenv",
+    },
+    'vim_go': {
+        'descr': "Vim go-lang plugin",
+        'src_type': "git",
+        'src': "https://github.com/fatih/vim-go",
+    },
+    'ctrlp': {
+        'descr': "Fuzzy files finder (required for vim_go)",
+        'src_type': "git",
+        'src': "https://github.com/kien/ctrlp.vim",
+    },
+    'minisnip': {
+        'descr': "Snippets (can be used by vim_go)",
+        'src_type': "git",
+        'src': "https://github.com/joereynolds/vim-minisnip",
     },
 }
