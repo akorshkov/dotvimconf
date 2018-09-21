@@ -57,6 +57,12 @@ PLUGINS = {
         'src_type': "git",
         'src': "https://github.com/akorshkov/ak_vimwiki.git",
     },
+    'ak_syntax': {
+        'descr': "My amendments to syntax of misc filetypes",
+        'src_type': "git",
+        'src': "https://github.com/akorshkov/ak_syntax.git",
+    },
+
     'vimjson': {
         'descr': "vim - JSON syntax and formatter",
         'src_type': "git",
