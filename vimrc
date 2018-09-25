@@ -126,27 +126,31 @@ command St8 call ConfTabsWidths(0, 8)  " standard tab
 
 
 " ==== syntastic plugin configuraton ============
-let g:syntastic_enable_signs=0          " signs on the left side of window
-let g:syntastic_check_on_wq=0
-let g:syntastic_aggregate_errors=1      " run all checkers
-let g:syntastic_echo_current_error=0    " do not display msgs in command line
-let g:syntastic_mode_map = { 'mode': 'passive',
-                           \ 'active_filetypes': [],
-                           \ 'passive_filetypes': [] }
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1         " auto open/close the loc list (0/1/2)
+if !empty(glob("~/.vim/bundle/syntastic"))
+	let g:syntastic_enable_signs=0          " signs on the left side of window
+	let g:syntastic_check_on_wq=0
+	let g:syntastic_aggregate_errors=1      " run all checkers
+	let g:syntastic_echo_current_error=0    " do not display msgs in command line
+	let g:syntastic_mode_map = { 'mode': 'passive',
+							   \ 'active_filetypes': [],
+							   \ 'passive_filetypes': [] }
+	let g:syntastic_always_populate_loc_list=1
+	let g:syntastic_auto_loc_list=1         " auto open/close the loc list (0/1/2)
 
-let g:syntastic_python_python_exec = 'python'
-let g:syntastic_python_checkers = ['flake8', 'pylint']
+	let g:syntastic_python_python_exec = 'python'
+	let g:syntastic_python_checkers = ['flake8', 'pylint']
+endif
 
 " ==== vim-json plugin configuraton =============
 let g:vim_json_syntax_conceal = 0
 
 " ==== ropevim plugin configuraton ==============
-let g:ropevim_guess_project=1
-autocmd BufNewFile,BufReadPost *.py nnoremap <buffer> g] :RopeGotoDefinition<CR>
-autocmd BufNewFile,BufReadPost *.py nnoremap <buffer> g[ :RopeFindOccurrences<CR>
-autocmd BufNewFile,BufReadPost *.py nnoremap <buffer> gc :RopeShowDoc<CR>
+if !empty(glob("~/.vim/bundle/ropevim"))
+	let g:ropevim_guess_project=1
+	autocmd BufNewFile,BufReadPost *.py nnoremap <buffer> g] :RopeGotoDefinition<CR>
+	autocmd BufNewFile,BufReadPost *.py nnoremap <buffer> g[ :RopeFindOccurrences<CR>
+	autocmd BufNewFile,BufReadPost *.py nnoremap <buffer> gc :RopeShowDoc<CR>
+endif
 
 " hotkey to perform the syntax check
 nnoremap <leader>s :w<CR>:SyntasticCheck<CR>
