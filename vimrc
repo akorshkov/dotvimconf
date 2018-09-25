@@ -141,11 +141,16 @@ let g:syntastic_python_checkers = ['flake8', 'pylint']
 " ==== vim-json plugin configuraton =============
 let g:vim_json_syntax_conceal = 0
 
+" ==== ropevim plugin configuraton ==============
+let g:ropevim_guess_project=1
+autocmd BufNewFile,BufReadPost *.py nnoremap <buffer> g] :RopeGotoDefinition<CR>
+autocmd BufNewFile,BufReadPost *.py nnoremap <buffer> g[ :RopeFindOccurrences<CR>
+autocmd BufNewFile,BufReadPost *.py nnoremap <buffer> gc :RopeShowDoc<CR>
+
 " hotkey to perform the syntax check
 nnoremap <leader>s :w<CR>:SyntasticCheck<CR>
 " toggle active/passive mode
 nnoremap <leader>S :SyntasticToggleMode<CR>
-
 
 " ==== finding syntax group of current word =====
 " Usage:
