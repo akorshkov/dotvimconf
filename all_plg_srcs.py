@@ -12,6 +12,11 @@ PLUGINS = {
         'src_type': "git",
         'src': "https://github.com/hynek/vim-python-pep8-indent.git",
     },
+    'python-syntax': {
+        'descr': "Enhanced python syntax highlighting for Vim",
+        'src_type': "git",
+        'src': "https://github.com/vim-python/python-syntax.git",
+    },
     'syntastic': {
         'descr': "Syntax checker for many languages",
         'src_type': "git",

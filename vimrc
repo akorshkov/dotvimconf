@@ -124,6 +124,12 @@ command St2 call ConfTabsWidths(0, 2)  " stellart cc code
 command St4 call ConfTabsWidths(0, 4)  " pem python
 command St8 call ConfTabsWidths(0, 8)  " standard tab
 
+" ==== python-syntax plugin configuraton ========
+if !empty(glob("~/.vim/bundle/python-syntax"))
+	let g:python_highlight_string_format=1
+	let g:python_highlight_file_headers_as_comments=1
+	let g:python_highlight_string_formatting=1
+endif
 
 " ==== syntastic plugin configuraton ============
 if !empty(glob("~/.vim/bundle/syntastic"))
