@@ -81,6 +81,9 @@ nnoremap <Space> i_<Esc>r
 " Q runs my 'hot' macro 'q'
 nnoremap Q @q
 
+" ==== highligth (not search!) current word =====
+nnoremap + :match StatusLineTerm /\<<C-R><C-W>\>/<CR>
+
 " ==== autocommands =============================
 "
 " tabstop        - how tab looks
