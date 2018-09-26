@@ -57,6 +57,9 @@ set hlsearch                        " highlight search matches
 if &term == "xterm"
 	" for <shift-Fx> to work inside putty
 	" http://vim.wikia.com/wiki/Mapping_fast_keycodes_in_terminal_Vim
+	" (to produce the following lines type
+	" "set<s-F5>=<Ctrl-v>{desired key combination}'
+	" Doesn't work with all the F-keys
 	set<s-F5>=[28~
 	set<s-F6>=[29~
 	set<s-F7>=[31~
@@ -181,6 +184,6 @@ endfunction
 
 " syntax-related hotkeys
 " - info about current word:
-nnoremap <s-F12> :call SynStack()<CR>
+nnoremap <leader><F12> :call SynStack()<CR>
 " - fix syntax for current buffer:
 nnoremap <F12> :syntax sync fromstart<CR>
