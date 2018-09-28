@@ -106,6 +106,7 @@ autocmd FileType lsa setlocal autoindent smartindent expandtab shiftwidth=2 soft
 autocmd FileType xml setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
 autocmd FileType html setlocal autoindent nosmartindent expandtab shiftwidth=2 softtabstop=2
 autocmd FileType vimwiki setlocal shiftwidth=4 softtabstop=4 tabstop=4
+autocmd FileType yaml setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd BufNewFile,BufReadPost *.pl setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
 
 filetype indent plugin on
