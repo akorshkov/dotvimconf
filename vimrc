@@ -132,8 +132,12 @@ command St8 call ConfTabsWidths(0, 8)  " standard tab
 
 " ==== python-syntax plugin configuraton ========
 if !empty(glob("~/.vim/bundle/python-syntax"))
-	let g:python_highlight_string_format=1
+	let g:python_highlight_builtins=1
+	let g:python_highlight_builtin_objs=1
+	let g:python_highlight_builtin_funcs=1
+	let g:python_highlight_exceptions=1
 	let g:python_highlight_file_headers_as_comments=1
+	let g:python_highlight_string_format=1
 	let g:python_highlight_string_formatting=1
 endif
 
