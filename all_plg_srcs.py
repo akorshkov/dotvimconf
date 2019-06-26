@@ -67,7 +67,11 @@ PLUGINS = {
         'src_type': "git",
         'src': "https://github.com/akorshkov/ak_syntax.git",
     },
-
+    'py_behave': {
+        'descr': "Python behave syntax plugin",
+        'src_type': "git",
+        'src': "https://github.com/avanzzzi/behave.vim",
+    },
     'vimjson': {
         'descr': "vim - JSON syntax and formatter",
         'src_type': "git",
