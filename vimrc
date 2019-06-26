@@ -1,6 +1,6 @@
 " akorshkov's vimrc file.
 "
-" Author: akorshkov at parallels.com
+" Author: akorshkov at gmail.com
 
 " ==== No need compatibility with vi  ===========
 set nocompatible
@@ -29,11 +29,9 @@ set statusline+=%f\                           " file name
 set statusline+=%h%m%r%w                      " status flag
 set statusline+=\[%{strlen(&ft)?&ft:'none'}]  " file type
 
-if exists('*SyntasticStatuslineFlag')
-	set statusline+=%#ToDo#                         " next line is read warn ...
-	set statusline+=%{SyntasticStatuslineFlag()}    " msg from syntastic plugin
-	set statusline+=%*                              " ... end of read warn
-endif
+set statusline+=%#ToDo#                       " next part is colored ...
+set statusline+=%{exists('*SyntasticStatuslineFlag')?SyntasticStatuslineFlag():''}    " msg from syntastic plugin
+set statusline+=%*                            " ... end of colored part
 
 set statusline+=%=                            " right align remainder
 set statusline+=0x%-8B                        " character value
