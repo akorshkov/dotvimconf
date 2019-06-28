@@ -84,10 +84,12 @@ nnoremap + :match StatusLineTerm /\<<C-R><C-W>\>/<CR>
 
 " ==== autocommands =============================
 "
-" tabstop        - how tab looks
-" softtabstop    - how tab counts when I push tab
+" tabstop        - how tab character looks
+" softtabstop    - width of what is inserted when I push tab button.
+"                  Depending on other options one or more tabs and/or spaces
+"                  are actually inserted.
 " shiftwidth     - num spaces used for auto indents
-" expandtab
+" expandtab      - insert spaces when I push tab
 "
 " au BufNewFile,BufRead *.flex set filetype=lex
 autocmd BufNewFile,BufReadPost *.py
@@ -103,7 +105,7 @@ autocmd FileType go setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab
 autocmd FileType lsa setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
 autocmd FileType xml setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
 autocmd FileType html setlocal autoindent nosmartindent expandtab shiftwidth=2 softtabstop=2
-autocmd FileType vimwiki setlocal shiftwidth=4 softtabstop=4 tabstop=4
+autocmd FileType vimwiki setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4
 autocmd FileType yaml setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd BufNewFile,BufReadPost *.pl setlocal autoindent smartindent expandtab shiftwidth=2 softtabstop=2
 
