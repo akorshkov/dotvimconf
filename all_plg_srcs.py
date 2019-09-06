@@ -87,6 +87,11 @@ PLUGINS = {
         'src_type': "git",
         'src': "https://github.com/python-rope/ropevim",
     },
+    'jedi_vim': {
+        'descr': "python-vim integration",
+        'src_type': "git",
+        'src': "https://github.com/davidhalter/jedi-vim",
+    },
     'vim_virtualenv': {
         'descr': "Instruct vim to use python from virtual env",
         'src_type': "git",

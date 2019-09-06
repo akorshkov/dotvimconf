@@ -169,6 +169,14 @@ if !empty(glob("~/.vim/bundle/ropevim"))
 	autocmd BufNewFile,BufReadPost *.py nnoremap <buffer> gc :RopeShowDoc<CR>
 endif
 
+" ==== ropevim plugin configuraton ==============
+if !empty(glob("~/.vim/bundle/jedi-vim"))
+	let g:jedi#popup_on_dot = 0
+	autocmd BufNewFile,BufReadPost *.py nnoremap <buffer> g] :call jedi#goto()<CR>
+	autocmd BufNewFile,BufReadPost *.py nnoremap <buffer> g[ :call jedi#usages()<CR>
+	autocmd BufNewFile,BufReadPost *.py nnoremap <buffer> gc :call jedi#show_documentation()<CR>
+endif
+
 " hotkey to perform the syntax check
 nnoremap <leader>s :w<CR>:SyntasticCheck<CR>
 " toggle active/passive mode
