@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import traceback
 import os.path
 import subprocess
 from optparse import OptionParser
@@ -18,40 +19,51 @@ class _CmdMaker(object):
     _COMMANDS = {
         #        working dir    | the command or commands
         'git': {
-            _OPER_INSTALL_NEW: (
-                "%(PARENT_DIR)s", "git clone %(SRC)s %(PKGNAME)s", ),
-            _OPER_UPDATE_EXISTING: (
-                "%(PKG_PATH)s", "git pull origin", )
+            _OPER_INSTALL_NEW: [
+                ("%(PARENT_DIR)s", "git clone %(SRC)s %(PKGNAME)s"),
+                ("%(PKG_PATH)s", "git submodule update --init --recursive"),
+            ],
+            _OPER_UPDATE_EXISTING: [
+                ("%(PKG_PATH)s", "git pull origin"),
+                ("%(PKG_PATH)s", "git submodule update --recursive"),
+            ],
         },
         'wget': {
-            _OPER_INSTALL_NEW: (
-                "%(PARENT_DIR)s", "wget --no-check-certificate %(SRC)s -O %(PKGNAME)s", ),
-            _OPER_UPDATE_EXISTING: (
-                "%(PARENT_DIR)s", "wget --no-check-certificate %(SRC)s -O %(PKGNAME)s", ),
+            _OPER_INSTALL_NEW: [
+                ("%(PARENT_DIR)s", "wget --no-check-certificate %(SRC)s -O %(PKGNAME)s"),
+            ],
+            _OPER_UPDATE_EXISTING: [
+                ("%(PARENT_DIR)s", "wget --no-check-certificate %(SRC)s -O %(PKGNAME)s"),
+            ],
         },
         'local': {
-            _OPER_INSTALL_NEW: (
-                "%(PARENT_DIR)s", "cp -r %(SRC)s %(PKGNAME)s", ),
+            _OPER_INSTALL_NEW: [
+                ("%(PARENT_DIR)s", "cp -r %(SRC)s %(PKGNAME)s"),
+            ],
         },
     }
 
     @classmethod
-    def mk_dir_and_cmds(cls, src_type, oper_id, vim_plugin):
+    def mk_dirs_and_cmds(cls, src_type, oper_id, vim_plugin):
         assert src_type in cls._COMMANDS, (
             "Unknown plygin src_type: '%s'" % src_type)
         opid2ops = cls._COMMANDS[src_type]
         assert oper_id in opid2ops, (
             "Operation %s is not supported for '%s' plugins" % (
                 oper_id, src_type))
-        cmd_strings = opid2ops[oper_id]
+        dirs_and_cmds = opid2ops[oper_id]
+        assert all(len(dir_and_cmd) == 2 for dir_and_cmd in dirs_and_cmds), (
+            "Each element of the list should be in form "
+            "(dir_template, command_template): {}".format(dirs_and_cmds))
+
         placeholders = cls._mk_placeholders(vim_plugin)
-        cmds = [cls._str2cmds(s, placeholders) for s in cmd_strings]
+        cmds = [
+            (
+                dir_template % placeholders,
+                [chunk % placeholders for chunk in cmd_template.split()]
+            ) for dir_template, cmd_template in dirs_and_cmds]
         assert cmds
-        dir_cmds = cmds[0]
-        assert len(dir_cmds) == 1, (
-            "Invalid working dir %s" % (dir_cmds,))
-        wrk_dir = dir_cmds[0]
-        return wrk_dir, cmds[1:]
+        return cmds
 
     @staticmethod
     def _mk_placeholders(vim_plugin):
@@ -66,12 +78,6 @@ class _CmdMaker(object):
             "PKG_PATH":   vim_plugin.pkg_path,
             "PKGNAME":    vim_plugin.pkg_name
         }
-
-    @staticmethod
-    def _str2cmds(cmd_str, placeholders):
-        cmd_chunks = cmd_str.split()
-        # substitute placeholders
-        return [s % placeholders for s in cmd_chunks]
 
 
 class VimPlugin(object):
@@ -90,11 +96,14 @@ class VimPlugin(object):
         self.prev_installed = os.path.exists(self.pkg_path)
 
     def update(self, new_only):
+        is_success = False
         try:
-            self._do_update(new_only)
+            is_success = self._do_update(new_only)
         except Exception as e:
-            print(e)
+            print(traceback.format_exc())
             print("... operation failed")
+        return is_success
+
 
     def _do_update(self, new_only):
         print("===== Processing plugin '%s' ..." % (self.descr, ))
@@ -104,41 +113,38 @@ class VimPlugin(object):
             else:
                 if self._update_existing():
                     print("... update failed.")
+                    return False
                 else:
                     print("... updated successfully.")
         else:
             if self._install_new():
                 print("... installation failed.")
+                return False
             else:
                 print("... done.")
+        return True
 
     def _install_new(self):
         self._make_tgt_dir()
-        wrk_dir, cmds = _CmdMaker.mk_dir_and_cmds(
-            self.src_type,
-            _OPER_INSTALL_NEW,
-            self)
-        bk_cwd = os.getcwd()
-        os.chdir(wrk_dir)
-        exit_status = self._run_commands(cmds)
-        os.chdir(bk_cwd)
-        return exit_status
+        for wrk_dir, cmd in _CmdMaker.mk_dirs_and_cmds(self.src_type,
+                                                       _OPER_INSTALL_NEW,
+                                                       self):
+            bk_cwd = os.getcwd()
+            os.chdir(wrk_dir)
+            exit_status = subprocess.call(cmd)
+            os.chdir(bk_cwd)
+            if exit_status:
+                return exit_status
+        return 0
 
     def _update_existing(self):
-        wrk_dir, cmds = _CmdMaker.mk_dir_and_cmds(
-            self.src_type,
-            _OPER_UPDATE_EXISTING,
-            self)
-        bk_cwd = os.getcwd()
-        os.chdir(wrk_dir)
-        exit_status = self._run_commands(cmds)
-        os.chdir(bk_cwd)
-        return exit_status
-
-    @staticmethod
-    def _run_commands(cmds):
-        for cmd in cmds:
+        for wrk_dir, cmd in _CmdMaker.mk_dirs_and_cmds(self.src_type,
+                                                       _OPER_UPDATE_EXISTING,
+                                                       self):
+            bk_cwd = os.getcwd()
+            os.chdir(wrk_dir)
             exit_status = subprocess.call(cmd)
+            os.chdir(bk_cwd)
             if exit_status:
                 return exit_status
         return 0
@@ -229,11 +235,24 @@ def main():
     plugs_to_process = args or sel_plug_ids
 
     if plugs_to_process:
+        num_failed = 0
         for plugin_id in plugs_to_process:
             plg = VimPlugin(vim_dir, plugin_id, **PLUGINS[plugin_id])
-            plg.update(options.new_only)
+            is_success = plg.update(options.new_only)
+            if not is_success:
+                num_failed += 1
+        if num_failed:
+            print("\n=== Warning: %s of %s plugins failed ===" % (
+                num_failed, len(plugs_to_process)))
+            return 1
+        else:
+            print("\n=== Ok: %s plugins processed successfully ===" % (
+                len(plugs_to_process), ))
+            return 0
     else:
-        print("Warning: No plugins selected.")
+        print("\n=== Warning: No plugins selected. ===")
+        return 0
+
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
